@@ -13,9 +13,9 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
-  - 
+  - Pilll
+  - Enemies
+  - Maps
   - 
   - 
   - 
@@ -40,4 +40,16 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Map
+    uniqueID: 3270267189
+    locked: 0
+  - name: Enemies
+    uniqueID: 2546633333
+    locked: 0
+  - name: Pill
+    uniqueID: 3062150831
+    locked: 0
+  - name: bullet
+    uniqueID: 2426797267
     locked: 0
