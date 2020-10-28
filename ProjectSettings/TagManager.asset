@@ -3,7 +3,10 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Enemy
+  - Bullet
+  - Neurons
   layers:
   - Default
   - TransparentFX
@@ -50,6 +53,9 @@ TagManager:
   - name: Pill
     uniqueID: 3062150831
     locked: 0
-  - name: bullet
+  - name: Bullet
     uniqueID: 2426797267
+    locked: 0
+  - name: Neurons
+    uniqueID: 4034556567
     locked: 0
