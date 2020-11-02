@@ -10,17 +10,19 @@ public class GameController : MonoBehaviour
     [SerializeField]
     GameObject enemy;
 
+    [SerializeField]
+    GameObject tower;
+
+    float orto;
+    float aspect;
+    float width;
     // Start is called before the first frame update
     void Start()
     {
-        float orto = Camera.main.orthographicSize;
-        float aspect = Screen.height / Screen.width;
-        float width = orto * aspect;
-        print(Screen.height);
-        print(Screen.width);
-        print(orto);
-        print(aspect);
-        GameObject bullet = Instantiate(enemy, new Vector3(orto, aspect), Quaternion.identity);
+        orto = Camera.main.orthographicSize;
+        aspect = Screen.height / Screen.width;
+        width = orto * aspect;
+        enemySpawnTime = 2.5;
     }
 
     // Update is called once per frame
@@ -32,12 +34,22 @@ public class GameController : MonoBehaviour
             timeElapse = 0;
             spawnEnemy();
         }
+        createTower();
     }
-
+    void createTower()
+    {
+        Vector3 worldPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector2 worldPoint2d = new Vector2(worldPoint.x, worldPoint.y);
+        if (Input.GetMouseButton(0))
+        {
+            GameObject Tower = Instantiate(tower, new Vector3(worldPoint2d.x, worldPoint2d.y), Quaternion.identity);
+        }
+        print(worldPoint2d);
+    }
     void spawnEnemy()
     {
-        float xRandom = Random.Range(-50f, 50f);
-        float yRandom = Random.Range(-50f, 50f);
-        
+        float xRandom = Random.Range(-width, width);
+        float yRandom = Random.Range(-orto, orto);
+        GameObject Enemy = Instantiate(enemy, new Vector3(xRandom, yRandom), Quaternion.identity);
     }
 }

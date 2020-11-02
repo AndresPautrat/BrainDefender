@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class AEnemieScript : MonoBehaviour
 {
-    float life = 500;
-    float velocity = 1;
+    float life = 100;
+    float velocity = 0.5f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -16,6 +17,7 @@ public class AEnemieScript : MonoBehaviour
         float distance = Mathf.Sqrt(Mathf.Pow(xDistance, 2) + Mathf.Pow(yDistance, 2));
         float xDirection = velocity * xDistance / distance;
         float yDirection = velocity * yDistance / distance;
+
         Vector3 direction = new Vector3(xDirection, yDirection);
         gameObject.GetComponent<Rigidbody2D>().velocity = direction;
     }
@@ -27,8 +29,34 @@ public class AEnemieScript : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        move();
+
     }
 
+    private void move()
+    {
+        int countNeurons = GameObject.FindGameObjectsWithTag("Neurons").Length;
+        for(int i = 0; i< countNeurons; i++)
+        {
+            Vector3 neuronPosition = GameObject.FindGameObjectsWithTag("Neurons")[i].transform.position;
+            float xDistance = neuronPosition.x - transform.position.x;
+            float yDistance = neuronPosition.y - transform.position.y;
+            float distance = Mathf.Sqrt(Mathf.Pow(xDistance, 2) + Mathf.Pow(yDistance, 2));
+
+            if (distance < 10 )
+            {
+                float xDirection = velocity * xDistance / distance;
+                float yDirection = velocity * yDistance / distance;
+
+                Vector3 direction = new Vector3(xDirection, yDirection);
+                gameObject.GetComponent<Rigidbody2D>().velocity = direction;
+            }
+        }
+        if (countNeurons == 0)
+        {
+            gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(0.0f,0.0f);
+        }
+    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.tag == "Bullet")
@@ -37,4 +65,5 @@ public class AEnemieScript : MonoBehaviour
             Destroy(collision.gameObject);
         }
     }
+
 }
