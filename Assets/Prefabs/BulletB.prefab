@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 6361074684565491336}
   - component: {fileID: 5725245076799755856}
   m_Layer: 0
-  m_Name: BulletGreen
-  m_TagString: Bullet
+  m_Name: BulletB
+  m_TagString: BulletB
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 6962309246828540609}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -3.61, y: 0.12, z: 0}
-  m_LocalScale: {x: 0.34360033, y: 0.3554961, z: 1}
+  m_LocalScale: {x: 0.16604835, y: 0.16610745, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -70,7 +70,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1868170029
-  m_SortingLayer: 4
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 354aa3937535d0f4da0d32af067793f5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

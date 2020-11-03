@@ -34,14 +34,18 @@ public class PIllGreenScript : MonoBehaviour
     {
         GameObject bullet = Instantiate(bulletPref, transform.position, Quaternion.identity);
         //modificar esto
-        Vector3 enemyPosition = GameObject.FindGameObjectsWithTag("Enemy")[0].transform.position;
-        float xDistance = enemyPosition.x - transform.position.x;
-        float yDistance = enemyPosition.y - transform.position.y;
-        float distance = Mathf.Sqrt(Mathf.Pow(xDistance, 2) + Mathf.Pow(yDistance, 2));
-        float xDirection = velocity * xDistance / distance;
-        float yDirection = velocity * yDistance / distance;
-        Vector3 direction = new Vector3(xDirection, yDirection);
-        bullet.GetComponent<Rigidbody2D>().velocity = direction;
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        if (enemies.Length > 0)
+        {
+            Vector3 enemyPosition = enemies[0].transform.position;
+            float xDistance = enemyPosition.x - transform.position.x;
+            float yDistance = enemyPosition.y - transform.position.y;
+            float distance = Mathf.Sqrt(Mathf.Pow(xDistance, 2) + Mathf.Pow(yDistance, 2));
+            float xDirection = velocity * xDistance / distance;
+            float yDirection = velocity * yDistance / distance;
+            Vector3 direction = new Vector3(xDirection, yDirection);
+            bullet.GetComponent<Rigidbody2D>().velocity = direction;
+        }
     }
     
 }

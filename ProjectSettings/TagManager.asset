@@ -7,6 +7,10 @@ TagManager:
   - Enemy
   - Bullet
   - Neurons
+  - BulletA
+  - BulletB
+  - BulletC
+  - BulletD
   layers:
   - Default
   - TransparentFX
@@ -50,11 +54,11 @@ TagManager:
   - name: Enemies
     uniqueID: 2546633333
     locked: 0
-  - name: Pill
-    uniqueID: 3062150831
-    locked: 0
   - name: Bullet
     uniqueID: 2426797267
+    locked: 0
+  - name: Pill
+    uniqueID: 3062150831
     locked: 0
   - name: Neurons
     uniqueID: 4034556567

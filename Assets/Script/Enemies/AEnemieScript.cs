@@ -4,8 +4,16 @@ using UnityEngine;
 
 public class AEnemieScript : MonoBehaviour
 {
-    float life = 100;
+    float life = 20;
     float velocity = 0.5f;
+    [SerializeField]
+    int dmgFromA;
+    [SerializeField]
+    int dmgFromB;
+    [SerializeField]
+    int dmgFromC;
+    [SerializeField]
+    int dmgFromD;
 
     // Start is called before the first frame update
     void Start()
@@ -25,11 +33,7 @@ public class AEnemieScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (life <= 0)
-        {
-            Destroy(gameObject);
-        }
-        move();
+        
 
     }
 
@@ -59,11 +63,31 @@ public class AEnemieScript : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.tag == "Bullet")
+        switch (collision.tag)
         {
-            life -= 10;
-            Destroy(collision.gameObject);
+            case "BulletA":
+                life -= dmgFromA;
+                Destroy(collision.gameObject);
+                break;
+            case "BulletB":
+                life -= dmgFromB;
+                Destroy(collision.gameObject);
+                break;
+            case "BulletC":
+                life -= dmgFromC;
+                Destroy(collision.gameObject);
+                break;
+            case "BulletD":
+                life -= dmgFromD;
+                Destroy(collision.gameObject);
+                break;
         }
+        if (life <= 0)
+        {
+            Destroy(gameObject);
+        }
+        move();
+
     }
 
 }
