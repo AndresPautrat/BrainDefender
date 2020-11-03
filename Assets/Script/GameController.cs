@@ -8,8 +8,8 @@ public class GameController : MonoBehaviour
 {
     double timeElapseEnemies = 0;
     double timeElapseNeurons = 0;
-    double enemySpawnTime=2.5;
-    double neuronsSpawnTime=10;
+    double enemySpawnTime = 2.5;
+    double neuronsSpawnTime = 10;
     [SerializeField]
     GameObject[] enemyPref;
 
@@ -22,12 +22,18 @@ public class GameController : MonoBehaviour
     [SerializeField]
     Button[] pillCreationBtn;
 
+    [SerializeField]
+    GameObject ObjPause;
+
+    [SerializeField]
+    Camera camPause;
+
     float orto;
     float aspect;
     float width;
 
     int creatingPill = -1;
-    // Start is called before the first frame update
+
     void Start()
     {
         orto = Camera.main.orthographicSize;
@@ -109,16 +115,16 @@ public class GameController : MonoBehaviour
                 enemy = Instantiate(enemyPref[enemyType], new Vector3(width, yRandom), Quaternion.identity);
                 break;
             case 2:
-                enemy = Instantiate(enemyPref[enemyType], new Vector3(-width, yRandom), Quaternion.identity); 
+                enemy = Instantiate(enemyPref[enemyType], new Vector3(-width, yRandom), Quaternion.identity);
                 break;
             case 3:
-                enemy = Instantiate(enemyPref[enemyType], new Vector3(xRandom, orto), Quaternion.identity); 
+                enemy = Instantiate(enemyPref[enemyType], new Vector3(xRandom, orto), Quaternion.identity);
                 break;
             case 4:
-                enemy = Instantiate(enemyPref[enemyType], new Vector3(xRandom, -orto), Quaternion.identity); 
+                enemy = Instantiate(enemyPref[enemyType], new Vector3(xRandom, -orto), Quaternion.identity);
                 break;
         }
-        
+
     }
 
     void spawnNeuron()
@@ -126,6 +132,21 @@ public class GameController : MonoBehaviour
         print("spawn neuron");
         float xRandom = Random.Range(-width, width);
         float yRandom = Random.Range(-orto, orto);
-        GameObject neuron = Instantiate(neuronPref, new Vector3(xRandom/2, yRandom/2), Quaternion.identity);
+        GameObject neuron = Instantiate(neuronPref, new Vector3(xRandom / 2, yRandom / 2), Quaternion.identity);
+    }
+
+
+    public void Pause()
+    {
+        if (Time.timeScale == 1)
+        {
+            camPause.depth = 1;
+            Time.timeScale = 0;
+        }
+        else
+        {
+            camPause.depth = 0;
+            Time.timeScale = 1;
+        }
     }
 }

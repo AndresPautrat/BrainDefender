@@ -11,4 +11,10 @@ public class MenuController : MonoBehaviour
 
     }
 
+    public void Exit()
+    {
+        print("exit");
+        Application.Quit();
+    }
+
 }
