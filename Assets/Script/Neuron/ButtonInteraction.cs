@@ -5,16 +5,21 @@ using UnityEngine;
 public class ButtonInteraction : MonoBehaviour
 {
     LineRenderer lr;
+    ScoreScript newscore;
+    public int conect;
+
     // Start is called before the first frame update
     void Start()
     {
+        conect = 0;
+        newscore = GameObject.Find("Score").GetComponent<ScoreScript>();
         //DrawLine(new Vector3(0, 0), gameObject.transform.position, Color.red);
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void makeLine()
@@ -30,13 +35,15 @@ public class ButtonInteraction : MonoBehaviour
         else
         {
             print("Created");
+            this.conect++;
+            newscore.CountConect(conect);
             DrawLine(new Vector3(lineNeuronX, lineNeuronY), gameObject.transform.position, Color.red);
             PlayerPrefs.SetFloat("LineNeuronX", 999999);
             PlayerPrefs.SetFloat("LineNeuronY", 999999);
         }
-        
-    }
 
+    }
+  
     void DrawLine(Vector3 start, Vector3 end, Color color, float duration = 0.2f)
     {
         GameObject myLine = new GameObject();

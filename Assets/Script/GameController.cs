@@ -10,6 +10,7 @@ public class GameController : MonoBehaviour
     double timeElapseNeurons = 0;
     double enemySpawnTime = 2.5;
     double neuronsSpawnTime = 10;
+
     [SerializeField]
     GameObject[] enemyPref;
 
@@ -31,6 +32,7 @@ public class GameController : MonoBehaviour
     float orto;
     float aspect;
     float width;
+    float score = 0;
 
     int creatingPill = -1;
 
@@ -38,7 +40,6 @@ public class GameController : MonoBehaviour
     {
         orto = Camera.main.orthographicSize;
         width = orto * Camera.main.aspect;
-
         //for (int i =0; i < pillCreationBtn.Length; i++)
         //{
         //    pillCreationBtn[i].onClick.AddListener(() => { creatingPill = i.; });
@@ -136,6 +137,7 @@ public class GameController : MonoBehaviour
     }
 
 
+    //TODO to correct menu pause in other screens 
     public void Pause()
     {
         if (Time.timeScale == 1)
