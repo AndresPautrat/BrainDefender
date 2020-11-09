@@ -16,6 +16,7 @@ TagManager:
   - Enemy2
   - Enemy3
   - Enemy4
+  - Pill
   layers:
   - Default
   - TransparentFX
@@ -65,6 +66,12 @@ TagManager:
   - name: Pill
     uniqueID: 3062150831
     locked: 0
+  - name: Lines
+    uniqueID: 1529785637
+    locked: 0
   - name: Neurons
     uniqueID: 4034556567
+    locked: 0
+  - name: UI
+    uniqueID: 1330037199
     locked: 0
