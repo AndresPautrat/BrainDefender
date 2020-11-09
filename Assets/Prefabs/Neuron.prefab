@@ -119,7 +119,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1202822800}
+      - m_Target: {fileID: 2590899110202138963}
         m_MethodName: makeLine
         m_Mode: 1
         m_Arguments:
@@ -142,6 +142,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 847d6c56ce14206448bdac366b075b6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  newscore: {fileID: 0}
+  connectionLinePref: {fileID: 2377349527222435364, guid: b0daf8f05a313d5458ca1eba712ca587,
+    type: 3}
 --- !u!1 &1361038467
 GameObject:
   m_ObjectHideFlags: 0
@@ -253,6 +256,7 @@ GameObject:
   - component: {fileID: 7341266630624629194}
   - component: {fileID: 3801835343223894189}
   - component: {fileID: 4342542605013378796}
+  - component: {fileID: 2590899110202138963}
   m_Layer: 0
   m_Name: Neuron
   m_TagString: Neurons
@@ -363,3 +367,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c5edb13b363d384f8e1c45cc5f41420, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2590899110202138963
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7341266630624629195}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 847d6c56ce14206448bdac366b075b6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  newscore: {fileID: 0}
+  connectionLinePref: {fileID: 2377349527222435364, guid: b0daf8f05a313d5458ca1eba712ca587,
+    type: 3}

@@ -4,55 +4,63 @@ using UnityEngine;
 
 public class ButtonInteraction : MonoBehaviour
 {
-    LineRenderer lr;
+    [SerializeField]
     ScoreScript newscore;
-    public int conect;
+    List<GameObject> conectionLinesArray = new List<GameObject>();
+    [SerializeField]
+    GameObject connectionLinePref;
 
     // Start is called before the first frame update
     void Start()
     {
-        conect = 0;
-        newscore = GameObject.Find("Score").GetComponent<ScoreScript>();
-        //DrawLine(new Vector3(0, 0), gameObject.transform.position, Color.red);
     }
 
     // Update is called once per frame
     void Update()
     {
-
     }
 
     public void makeLine()
     {
-        float lineNeuronX = PlayerPrefs.GetFloat("LineNeuronX", 999999);
-        float lineNeuronY = PlayerPrefs.GetFloat("LineNeuronY", 999999);
-        print(lineNeuronY);
-        if (lineNeuronX > 999998)
+        int makingConnection = PlayerPrefs.GetInt("MakingConnection", -1);
+        print(makingConnection);
+        if (makingConnection == 0)
         {
-            PlayerPrefs.SetFloat("LineNeuronX", gameObject.transform.position.x);
-            PlayerPrefs.SetFloat("LineNeuronY", gameObject.transform.position.y);
+            PlayerPrefs.SetInt("MakingConnection", 1);
+            print("chagne");
+            DrawLine();
         }
-        else
+        else if(makingConnection == 1)
         {
-            print("Created");
-            this.conect++;
-            newscore.CountConect(conect);
-            DrawLine(new Vector3(lineNeuronX, lineNeuronY), gameObject.transform.position, Color.red);
-            PlayerPrefs.SetFloat("LineNeuronX", 999999);
-            PlayerPrefs.SetFloat("LineNeuronY", 999999);
+            GameObject connectionLine = GameObject.FindGameObjectWithTag("LineInProgress");
+            ConnectionLineScript connectionLineScript = connectionLine.GetComponent<ConnectionLineScript>();
+            connectionLineScript.makeConnection(transform.position);
+            PlayerPrefs.SetInt("MakingConnection", 0);
+            conectionLinesArray.Add(connectionLine);
+            newscore.CountConect();
         }
-
     }
   
-    void DrawLine(Vector3 start, Vector3 end, Color color, float duration = 0.2f)
+    void DrawLine()
     {
-        GameObject myLine = new GameObject();
-        myLine.transform.position = start;
-        myLine.AddComponent<LineRenderer>();
-        lr = myLine.GetComponent<LineRenderer>();
-        lr.SetColors(color, color);
-        lr.SetWidth(0.1f, 0.1f);
-        lr.SetPosition(0, start);
-        lr.SetPosition(1, end);
+        GameObject connectionLine=Instantiate(connectionLinePref, new Vector3(0, 0, 0), Quaternion.identity);
+        LineRenderer line = connectionLine.GetComponent<LineRenderer>();
+        line.SetPosition(1, gameObject.transform.position);
+        conectionLinesArray.Add(connectionLine);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "Enemy")
+        {
+            foreach(GameObject i in conectionLinesArray)
+            {
+                Destroy(i);
+                newscore.DestroyConect();
+            }
+            Destroy(this.gameObject);
+            collision.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(0.0f, 0.0f);
+        }
+
     }
 }

@@ -76,6 +76,15 @@ public class AEnemieScript : MonoBehaviour
             case "BulletC":
                 life -= dmgFromC;
                 Destroy(collision.gameObject);
+                if(gameObject.name == "Enemy3(Clone)")
+                {
+                    print(collision.GetComponent<Rigidbody2D>().velocity.x);
+                    Vector2 velocityCollision = collision.GetComponent<Rigidbody2D>().velocity;
+                    transform.position = new Vector2(
+                        transform.position.x + Mathf.Sign(transform.position.x)* Mathf.Abs(velocityCollision.x*0.01f) 
+                        , transform.position.y + Mathf.Sign(transform.position.y) * Mathf.Abs(velocityCollision.y * 0.01f)
+                        );
+                }
                 break;
             case "BulletD":
                 life -= dmgFromD;

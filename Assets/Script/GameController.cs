@@ -24,9 +24,6 @@ public class GameController : MonoBehaviour
     Button[] pillCreationBtn;
 
     [SerializeField]
-    GameObject ObjPause;
-
-    [SerializeField]
     Camera camPause;
 
     float orto;
@@ -48,6 +45,8 @@ public class GameController : MonoBehaviour
         pillCreationBtn[1].onClick.AddListener(btnB);
         pillCreationBtn[2].onClick.AddListener(btnC);
         pillCreationBtn[3].onClick.AddListener(btnD);
+
+        PlayerPrefs.SetInt("MakingConnection", 0);
     }
 
     void btnA()
@@ -106,7 +105,7 @@ public class GameController : MonoBehaviour
     void spawnEnemy()
     {
         int startSide = Random.Range(1, 5);
-        int enemyType = Random.Range(0, 4);
+        int enemyType = 2;
         float xRandom = Random.Range(-width, width);
         float yRandom = Random.Range(-orto, orto);
         GameObject enemy;
@@ -130,7 +129,6 @@ public class GameController : MonoBehaviour
 
     void spawnNeuron()
     {
-        print("spawn neuron");
         float xRandom = Random.Range(-width, width);
         float yRandom = Random.Range(-orto, orto);
         GameObject neuron = Instantiate(neuronPref, new Vector3(xRandom / 2, yRandom / 2), Quaternion.identity);
@@ -142,13 +140,13 @@ public class GameController : MonoBehaviour
     {
         if (Time.timeScale == 1)
         {
-            camPause.depth = 1;
             Time.timeScale = 0;
+            Camera.main.transform.position = new Vector3(camPause.transform.position.x, camPause.transform.position.y, camPause.transform.position.z);
         }
         else
         {
-            camPause.depth = 0;
             Time.timeScale = 1;
+            Camera.main.transform.position = new Vector3(0, 0, -10);
         }
     }
 }

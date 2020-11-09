@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 public class ScoreScript : MonoBehaviour
 {
+    [SerializeField]
+    GameObject textObject;
     Text scoreText = null;
     private int score = 0;
     private int conect = 0;
@@ -11,7 +13,7 @@ public class ScoreScript : MonoBehaviour
     double generateScore = 1;
     void Start()
     {
-        scoreText = GameObject.Find("TextScore").GetComponent<Text>();
+        scoreText = textObject.GetComponent<Text>();
     }
 
     // Update is called once per frame
@@ -22,15 +24,18 @@ public class ScoreScript : MonoBehaviour
         {
             if (timeElapseScore > generateScore)
             {
-                score += 20;
+                score += 5*conect;
                 scoreText.text = "SCORE:" + score;
-                print(score);
                 timeElapseScore = 0;
             }
         }
     }
-    public void CountConect(int con)
+    public void CountConect()
     {
-        conect = con;
+        conect ++;
+    }
+    public void DestroyConect()
+    {
+        conect--;
     }
 }
