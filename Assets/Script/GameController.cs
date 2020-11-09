@@ -104,7 +104,7 @@ public class GameController : MonoBehaviour
     void spawnEnemy()
     {
         int startSide = Random.Range(1, 5);
-        int enemyType = 2;
+        int enemyType = Random.Range(0,4);
         float xRandom = Random.Range(-width, width);
         float yRandom = Random.Range(-orto, orto);
         GameObject enemy;
