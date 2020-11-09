@@ -100,6 +100,10 @@ MonoBehaviour:
   dmgFromB: 15
   dmgFromC: 0
   dmgFromD: 5
+  atack1: 4
+  atack2: 2
+  atack3: 8
+  atack4: 2
 --- !u!50 &651212862
 Rigidbody2D:
   serializedVersion: 4

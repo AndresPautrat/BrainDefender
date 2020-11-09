@@ -54,6 +54,26 @@ PrefabInstance:
       propertyPath: dmgFromD
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 7376497999071979346, guid: 99c7d37039340f742ab8fbf1c33038bf,
+        type: 3}
+      propertyPath: atack1
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7376497999071979346, guid: 99c7d37039340f742ab8fbf1c33038bf,
+        type: 3}
+      propertyPath: atack2
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7376497999071979346, guid: 99c7d37039340f742ab8fbf1c33038bf,
+        type: 3}
+      propertyPath: atack3
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7376497999071979346, guid: 99c7d37039340f742ab8fbf1c33038bf,
+        type: 3}
+      propertyPath: atack4
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 7560597789287901023, guid: 99c7d37039340f742ab8fbf1c33038bf,
         type: 3}
       propertyPath: m_LocalPosition.x

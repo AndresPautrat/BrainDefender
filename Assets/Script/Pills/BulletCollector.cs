@@ -18,7 +18,7 @@ public class BulletCollector : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.tag == "Bullet")
+        if(collision.tag == "BulletA" || collision.tag == "BulletB" || collision.tag == "BulletC" || collision.tag == "BulletD")
         {
             Destroy(collision.gameObject);
         }

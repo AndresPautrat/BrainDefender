@@ -12,6 +12,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PillD
       objectReference: {fileID: 0}
+    - target: {fileID: 4966785485669201376, guid: 862756f53b5be644cbc588150d914c50,
+        type: 3}
+      propertyPath: m_TagString
+      value: Pill
+      objectReference: {fileID: 0}
     - target: {fileID: 4966785485669201388, guid: 862756f53b5be644cbc588150d914c50,
         type: 3}
       propertyPath: m_LocalPosition.x

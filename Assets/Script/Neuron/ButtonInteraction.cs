@@ -23,11 +23,9 @@ public class ButtonInteraction : MonoBehaviour
     public void makeLine()
     {
         int makingConnection = PlayerPrefs.GetInt("MakingConnection", -1);
-        print(makingConnection);
         if (makingConnection == 0)
         {
             PlayerPrefs.SetInt("MakingConnection", 1);
-            print("chagne");
             DrawLine();
         }
         else if(makingConnection == 1)

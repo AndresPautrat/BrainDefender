@@ -97,7 +97,6 @@ public class GameController : MonoBehaviour
         {
             Vector3 worldPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Vector2 worldPoint2d = new Vector2(worldPoint.x, worldPoint.y);
-            print(timeElapseEnemies);
             GameObject Tower = Instantiate(pillPrefs[creatingPill], new Vector3(worldPoint2d.x, worldPoint2d.y), Quaternion.identity);
             creatingPill = -1;
         }
@@ -109,6 +108,7 @@ public class GameController : MonoBehaviour
         float xRandom = Random.Range(-width, width);
         float yRandom = Random.Range(-orto, orto);
         GameObject enemy;
+
         switch (startSide)
         {
             case 1:
