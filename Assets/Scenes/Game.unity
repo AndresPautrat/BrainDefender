@@ -1026,7 +1026,7 @@ GameObject:
   - component: {fileID: 892056709}
   m_Layer: 5
   m_Name: Canvas
-  m_TagString: Untagged
+  m_TagString: Pill
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1354,10 +1354,20 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -2896186914847847657, guid: 862756f53b5be644cbc588150d914c50,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: -2896186914847847657, guid: 862756f53b5be644cbc588150d914c50,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 2.5
+      objectReference: {fileID: 0}
     - target: {fileID: 4966785485669201376, guid: 862756f53b5be644cbc588150d914c50,
         type: 3}
       propertyPath: m_Name
-      value: PillC
+      value: PillC(Clone)
       objectReference: {fileID: 0}
     - target: {fileID: 4966785485669201388, guid: 862756f53b5be644cbc588150d914c50,
         type: 3}
@@ -2670,50 +2680,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1885682046}
   m_CullTransparentMesh: 0
---- !u!1 &1911522283
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1911522285}
-  - component: {fileID: 1911522284}
-  m_Layer: 0
-  m_Name: Score
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1911522284
+--- !u!114 &1911522284 stripped
 MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 4585283585971820407, guid: 9d29a5507b1d09248a12dd3e2b07943d,
+    type: 3}
+  m_PrefabInstance: {fileID: 4585283586800227483}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1911522283}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e6bfa8c03aa17a74a98ccee2d1d82868, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textObject: {fileID: 686110017}
---- !u!4 &1911522285
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1911522283}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.2998394, y: -0.09818491, z: -10.787109}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 10
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1984329149
 GameObject:
   m_ObjectHideFlags: 0
@@ -3107,6 +3085,80 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2105185904}
   m_CullTransparentMesh: 0
+--- !u!1001 &4585283586800227483
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4585283585971820400, guid: 9d29a5507b1d09248a12dd3e2b07943d,
+        type: 3}
+      propertyPath: m_Name
+      value: Score
+      objectReference: {fileID: 0}
+    - target: {fileID: 4585283585971820406, guid: 9d29a5507b1d09248a12dd3e2b07943d,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1.2998394
+      objectReference: {fileID: 0}
+    - target: {fileID: 4585283585971820406, guid: 9d29a5507b1d09248a12dd3e2b07943d,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.09818491
+      objectReference: {fileID: 0}
+    - target: {fileID: 4585283585971820406, guid: 9d29a5507b1d09248a12dd3e2b07943d,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -10.787109
+      objectReference: {fileID: 0}
+    - target: {fileID: 4585283585971820406, guid: 9d29a5507b1d09248a12dd3e2b07943d,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4585283585971820406, guid: 9d29a5507b1d09248a12dd3e2b07943d,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4585283585971820406, guid: 9d29a5507b1d09248a12dd3e2b07943d,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4585283585971820406, guid: 9d29a5507b1d09248a12dd3e2b07943d,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4585283585971820406, guid: 9d29a5507b1d09248a12dd3e2b07943d,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4585283585971820406, guid: 9d29a5507b1d09248a12dd3e2b07943d,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4585283585971820406, guid: 9d29a5507b1d09248a12dd3e2b07943d,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4585283585971820406, guid: 9d29a5507b1d09248a12dd3e2b07943d,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4585283585971820407, guid: 9d29a5507b1d09248a12dd3e2b07943d,
+        type: 3}
+      propertyPath: textObject
+      value: 
+      objectReference: {fileID: 686110017}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 9d29a5507b1d09248a12dd3e2b07943d, type: 3}
 --- !u!1001 &7341266630914806845
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3123,6 +3175,18 @@ PrefabInstance:
       propertyPath: newscore
       value: 
       objectReference: {fileID: 1911522284}
+    - target: {fileID: 2590899110202138963, guid: e059140dff6424843ba3f970a8f7d087,
+        type: 3}
+      propertyPath: canvasText
+      value: 
+      objectReference: {fileID: 4196869471698575717, guid: adaf2f26ca01c7b4fb486e9a01b7f789,
+        type: 3}
+    - target: {fileID: 2590899110202138963, guid: e059140dff6424843ba3f970a8f7d087,
+        type: 3}
+      propertyPath: canvasTextPref
+      value: 
+      objectReference: {fileID: 4196869471698575717, guid: adaf2f26ca01c7b4fb486e9a01b7f789,
+        type: 3}
     - target: {fileID: 7341266630624629189, guid: e059140dff6424843ba3f970a8f7d087,
         type: 3}
       propertyPath: m_LocalPosition.x

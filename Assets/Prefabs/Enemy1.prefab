@@ -104,6 +104,8 @@ MonoBehaviour:
   atack2: 2
   atack3: 8
   atack4: 2
+  canvasTextPref: {fileID: 4196869471698575717, guid: adaf2f26ca01c7b4fb486e9a01b7f789,
+    type: 3}
 --- !u!50 &651212862
 Rigidbody2D:
   serializedVersion: 4

@@ -1,18 +1,25 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PIllGreenScript : MonoBehaviour
 {
     [SerializeField]
-    GameObject enemie;
+    int life;
     [SerializeField]
     GameObject bulletPref;
     float velocity = 10;
 
-    double timeElapse = 0;
+    float timeElapseEnemyDmg = 0;
+    float timeBetweenEnemyDmg = 1;
+
+    double timeElapse = 1;
     double recoil = 1;
     double recoilBase = 1;
+
+    [SerializeField]
+    GameObject canvasTextPref;
 
     private void Start()
     {
@@ -39,6 +46,8 @@ public class PIllGreenScript : MonoBehaviour
     {
         GameObject bullet = Instantiate(bulletPref, transform.position, Quaternion.identity);
         Vector3 enemyPosition = enemy.transform.position;
+
+
         float xDistance = enemyPosition.x - transform.position.x;
         float yDistance = enemyPosition.y - transform.position.y;
         float distance = Mathf.Sqrt(Mathf.Pow(xDistance, 2) + Mathf.Pow(yDistance, 2));
@@ -95,4 +104,27 @@ public class PIllGreenScript : MonoBehaviour
         shoot(enemy, velocity);
     }
 
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        timeElapseEnemyDmg += Time.deltaTime;
+        if (timeElapseEnemyDmg >= timeBetweenEnemyDmg)
+        {
+            print(gameObject.name);
+            int dmgTaken = collision.gameObject.GetComponent<AEnemieScript>().getDmg(gameObject.name);
+            displayDmgTaken(dmgTaken);
+            life -= dmgTaken;
+            timeElapseEnemyDmg = 0;
+            if (life <= 0)
+            {
+                Destroy(gameObject);
+            }
+        }
+    }
+
+    void displayDmgTaken(int dmgTaken)
+    {
+        GameObject canvasText = Instantiate(canvasTextPref, transform.position, Quaternion.identity, transform);
+        canvasText.transform.GetChild(0).gameObject.GetComponent<Text>().text = dmgTaken.ToString();
+        Destroy(canvasText, 0.5f);
+    }
 }

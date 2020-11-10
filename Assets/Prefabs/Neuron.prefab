@@ -145,6 +145,8 @@ MonoBehaviour:
   newscore: {fileID: 0}
   connectionLinePref: {fileID: 2377349527222435364, guid: b0daf8f05a313d5458ca1eba712ca587,
     type: 3}
+  canvasTextPref: {fileID: 0}
+  life: 0
 --- !u!1 &1361038467
 GameObject:
   m_ObjectHideFlags: 0
@@ -316,7 +318,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -260410729
-  m_SortingLayer: 5
+  m_SortingLayer: 6
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 0cd0c2beb498b694cb4d14cff9c67780, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -382,3 +384,6 @@ MonoBehaviour:
   newscore: {fileID: 0}
   connectionLinePref: {fileID: 2377349527222435364, guid: b0daf8f05a313d5458ca1eba712ca587,
     type: 3}
+  canvasTextPref: {fileID: 4196869471698575717, guid: adaf2f26ca01c7b4fb486e9a01b7f789,
+    type: 3}
+  life: 0

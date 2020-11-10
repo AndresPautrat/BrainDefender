@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1332642662605844371}
   - component: {fileID: 1332642662605844370}
   - component: {fileID: 1332642662605844369}
+  - component: {fileID: -6987682455221648366}
   m_Layer: 0
   m_Name: PillA
   m_TagString: Pill
@@ -94,6 +95,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63a530edefebb9142af79d1e925bb623, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemie: {fileID: 0}
+  life: 0
   bulletPref: {fileID: 1170550709555181771, guid: 89fe6af57f09fe74cbe97a71802b35df,
     type: 3}
+  canvasTextPref: {fileID: 4196869471698575717, guid: adaf2f26ca01c7b4fb486e9a01b7f789,
+    type: 3}
+--- !u!61 &-6987682455221648366
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1332642662605844368}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 4.8, y: 4.8}
+    newSize: {x: 4.8, y: 4.8}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 2.5, y: 2.5}
+  m_EdgeRadius: 0

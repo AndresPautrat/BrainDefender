@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class AEnemieScript : MonoBehaviour
 {
@@ -24,6 +25,11 @@ public class AEnemieScript : MonoBehaviour
     int atack3;
     [SerializeField]
     int atack4;
+    [SerializeField]
+    GameObject canvasTextPref;
+
+    float timeElapseMove=0f;
+    float timeMoveUpdates=2f;
 
     bool aument = true;
 
@@ -45,42 +51,54 @@ public class AEnemieScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        timeElapseMove += Time.deltaTime;
+        if (timeElapseMove >= timeMoveUpdates)
+        {
+            timeElapseMove = 0;
+            move();
+        }
     }
 
     private void move()
     {
-        int countNeurons = GameObject.FindGameObjectsWithTag("Neurons").Length;
-        for (int i = 0; i < countNeurons; i++)
+        List<GameObject> targets = new List<GameObject>();
+        targets.AddRange(GameObject.FindGameObjectsWithTag("Neurons"));
+        targets.AddRange(GameObject.FindGameObjectsWithTag("Pill"));
+        Vector3 closestDirection=new Vector3(0,0);
+        float closestDistance = 9999999;
+        for (int i = 0; i < targets.Count; i++)
         {
-            Vector3 neuronPosition = GameObject.FindGameObjectsWithTag("Neurons")[i].transform.position;
+            Vector3 neuronPosition = targets[i].transform.position;
             float xDistance = neuronPosition.x - transform.position.x;
             float yDistance = neuronPosition.y - transform.position.y;
             float distance = Mathf.Sqrt(Mathf.Pow(xDistance, 2) + Mathf.Pow(yDistance, 2));
-
-            if (distance < 10)
+            if (distance < closestDistance)
             {
                 float xDirection = velocity * xDistance / distance;
                 float yDirection = velocity * yDistance / distance;
 
-                Vector3 direction = new Vector3(xDirection, yDirection);
-                gameObject.GetComponent<Rigidbody2D>().velocity = direction;
+                closestDirection = new Vector3(xDirection, yDirection);
+                closestDistance = distance;
+                //gameObject.GetComponent<Rigidbody2D>().velocity = direction;
             }
         }
-        if (countNeurons == 0)
-        {
-            gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(0.0f, 0.0f);
-        }
+        gameObject.GetComponent<Rigidbody2D>().velocity = closestDirection;
+        //if (targets.Count == 0)
+        //{
+        //    gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(0.0f, 0.0f);
+        //}
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         switch (collision.tag)
         {
             case "BulletA":
+                displayDmgTaken(dmgFromA);
                 life -= dmgFromA;
                 Destroy(collision.gameObject);
                 break;
             case "BulletB":
+                displayDmgTaken(dmgFromB);
                 life -= dmgFromB;
                 Destroy(collision.gameObject);
 
@@ -94,6 +112,7 @@ public class AEnemieScript : MonoBehaviour
 
                 break;
             case "BulletC":
+                displayDmgTaken(dmgFromC);
                 life -= dmgFromC;
                 Destroy(collision.gameObject);
                 if (gameObject.name == "Enemy3(Clone)")
@@ -106,6 +125,7 @@ public class AEnemieScript : MonoBehaviour
                 }
                 break;
             case "BulletD":
+                displayDmgTaken(dmgFromD);
                 life -= dmgFromD;
                 Destroy(collision.gameObject);
                 if (aument)
@@ -121,8 +141,31 @@ public class AEnemieScript : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        move();
 
+    }
+
+    void displayDmgTaken(int dmgTaken)
+    {
+        GameObject canvasText = Instantiate(canvasTextPref, transform.position, Quaternion.identity, transform);
+        canvasText.transform.GetChild(0).gameObject.GetComponent<Text>().text = dmgTaken.ToString();
+        Destroy(canvasText, 0.5f);
+    }
+
+    public int getDmg(string torret)
+    {
+        print("dmg"+torret);
+        switch (torret)
+        {
+            case "PillA(Clone)":
+                return atack1;
+            case "PillB(Clone)":
+                return atack2;
+            case "PillC(Clone)":
+                return atack3;
+            case "PillD(Clone)":
+                return atack4;
+        }
+        return 0;
     }
 
 }

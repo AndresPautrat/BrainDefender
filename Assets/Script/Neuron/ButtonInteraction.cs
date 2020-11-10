@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ButtonInteraction : MonoBehaviour
 {
@@ -9,6 +10,10 @@ public class ButtonInteraction : MonoBehaviour
     List<GameObject> conectionLinesArray = new List<GameObject>();
     [SerializeField]
     GameObject connectionLinePref;
+    [SerializeField]
+    GameObject canvasTextPref;
+    [SerializeField]
+    int life;
 
     // Start is called before the first frame update
     void Start()
@@ -22,6 +27,7 @@ public class ButtonInteraction : MonoBehaviour
 
     public void makeLine()
     {
+        
         int makingConnection = PlayerPrefs.GetInt("MakingConnection", -1);
         if (makingConnection == 0)
         {
@@ -58,6 +64,9 @@ public class ButtonInteraction : MonoBehaviour
             }
             Destroy(this.gameObject);
             collision.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(0.0f, 0.0f);
+            GameObject canvasText = Instantiate(canvasTextPref, transform.position, Quaternion.identity, transform);
+            canvasText.transform.GetChild(0).gameObject.GetComponent<Text>().text = "X";
+            Destroy(canvasText, 2);
         }
 
     }
