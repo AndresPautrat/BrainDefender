@@ -64,6 +64,7 @@ public class AEnemieScript : MonoBehaviour
         List<GameObject> targets = new List<GameObject>();
         targets.AddRange(GameObject.FindGameObjectsWithTag("Neurons"));
         targets.AddRange(GameObject.FindGameObjectsWithTag("Pill"));
+        targets.AddRange(GameObject.FindGameObjectsWithTag("Buff"));
         Vector3 closestDirection=new Vector3(0,0);
         float closestDistance = 9999999;
         for (int i = 0; i < targets.Count; i++)
@@ -90,14 +91,15 @@ public class AEnemieScript : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        switch (collision.tag)
+
+        switch (collision.name)
         {
-            case "BulletA":
+            case "BulletA(Clone)":
                 displayDmgTaken(dmgFromA);
                 life -= dmgFromA;
                 Destroy(collision.gameObject);
                 break;
-            case "BulletB":
+            case "BulletB(Clone)":
                 displayDmgTaken(dmgFromB);
                 life -= dmgFromB;
                 Destroy(collision.gameObject);
@@ -111,7 +113,7 @@ public class AEnemieScript : MonoBehaviour
                     }
 
                 break;
-            case "BulletC":
+            case "BulletC(Clone)":
                 displayDmgTaken(dmgFromC);
                 life -= dmgFromC;
                 Destroy(collision.gameObject);
@@ -124,7 +126,7 @@ public class AEnemieScript : MonoBehaviour
                         );
                 }
                 break;
-            case "BulletD":
+            case "BulletD(Clone)":
                 displayDmgTaken(dmgFromD);
                 life -= dmgFromD;
                 Destroy(collision.gameObject);
@@ -166,6 +168,11 @@ public class AEnemieScript : MonoBehaviour
                 return atack4;
         }
         return 0;
+    }
+
+    public void startBuff(string buffID)
+    {
+        print("buff pill");
     }
 
 }

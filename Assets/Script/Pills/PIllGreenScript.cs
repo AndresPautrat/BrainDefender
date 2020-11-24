@@ -14,9 +14,21 @@ public class PIllGreenScript : MonoBehaviour
     float timeElapseEnemyDmg = 0;
     float timeBetweenEnemyDmg = 1;
 
+    float timeElapseBuff = 0;
+    float timeBetweenBuff = 10;
+
     double timeElapse = 1;
     double recoil = 1;
     double recoilBase = 1;
+
+    int applyingBuff = -1;
+
+    float defenseBuff = 1;
+    float atackBuff = 1;
+    float velocityBuff = 1;
+    bool knockBackBullet = false;
+    bool knockBackPill = false;
+    bool poison = false;
 
     [SerializeField]
     GameObject canvasTextPref;
@@ -29,12 +41,20 @@ public class PIllGreenScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        timeElapse += Time.deltaTime;
+        timeElapseBuff += Time.deltaTime;
+        if (timeElapseBuff >= timeBetweenBuff)
+        {
+            timeElapseBuff = 0;
+            applyingBuff = -1;
+        }
+            timeElapse += Time.deltaTime;
         if (timeElapse >= recoil)
         {
             timeElapse = 0;
-            GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
-            if (enemies.Length > 0)
+            List<GameObject> enemies = new List<GameObject>();
+            enemies.AddRange(GameObject.FindGameObjectsWithTag("Enemy"));
+            enemies.AddRange(GameObject.FindGameObjectsWithTag("Buff"));
+            if (enemies.Count > 0)
             {
                 GameObject targetEnemy = enemies[0];
                 behaviour(targetEnemy);
@@ -111,6 +131,7 @@ public class PIllGreenScript : MonoBehaviour
         {
             print(gameObject.name);
             int dmgTaken = collision.gameObject.GetComponent<AEnemieScript>().getDmg(gameObject.name);
+            dmgTaken = (int)(dmgTaken*defenseBuff);
             displayDmgTaken(dmgTaken);
             life -= dmgTaken;
             timeElapseEnemyDmg = 0;
@@ -126,5 +147,31 @@ public class PIllGreenScript : MonoBehaviour
         GameObject canvasText = Instantiate(canvasTextPref, transform.position, Quaternion.identity, transform);
         canvasText.transform.GetChild(0).gameObject.GetComponent<Text>().text = dmgTaken.ToString();
         Destroy(canvasText, 0.5f);
+    }
+
+    public void startBuff(string buffID)
+    {
+        switch (buffID)
+        {
+            case "Buff1(Clone)":
+                applyingBuff = 1;
+                velocityBuff *= 1.1f;
+                break;
+            case "Buff2(Clone)":
+                applyingBuff = 2;
+                knockBackBullet = true;
+                atackBuff = 1.1f;
+                break;
+            case "Buff3(Clone)":
+                applyingBuff = 3;
+                knockBackPill = true;
+                defenseBuff = 1.2f;
+                break ;
+            case "Buff4(Clone)":
+                applyingBuff = 4;
+                atackBuff = 0.9f;
+                poison = true;
+                break;
+        }
     }
 }

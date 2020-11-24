@@ -7,16 +7,13 @@ TagManager:
   - Enemy
   - Bullet
   - Neurons
-  - BulletA
-  - BulletB
-  - BulletC
-  - BulletD
   - LineInProgress
   - Enemy1
   - Enemy2
   - Enemy3
   - Enemy4
   - Pill
+  - Buff
   layers:
   - Default
   - TransparentFX

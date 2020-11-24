@@ -15,7 +15,7 @@ PrefabInstance:
     - target: {fileID: 6962309246828540609, guid: ab2e1606c519d1f4d96d2b3984ef920f,
         type: 3}
       propertyPath: m_TagString
-      value: BulletC
+      value: Bullet
       objectReference: {fileID: 0}
     - target: {fileID: 6962309246828540614, guid: ab2e1606c519d1f4d96d2b3984ef920f,
         type: 3}
