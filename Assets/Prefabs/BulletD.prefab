@@ -7,6 +7,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1747656705747800342, guid: fa025be8077c1154b99ca246b7c83dc1,
+        type: 3}
+      propertyPath: DmgEnemy1
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1747656705747800342, guid: fa025be8077c1154b99ca246b7c83dc1,
+        type: 3}
+      propertyPath: DmgEnemy2
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1747656705747800342, guid: fa025be8077c1154b99ca246b7c83dc1,
+        type: 3}
+      propertyPath: DmgEnemy3
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 1747656705747800342, guid: fa025be8077c1154b99ca246b7c83dc1,
+        type: 3}
+      propertyPath: DmgEnemy4
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 3860394120193555144, guid: fa025be8077c1154b99ca246b7c83dc1,
         type: 3}
       propertyPath: m_Sprite

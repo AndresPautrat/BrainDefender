@@ -9,15 +9,6 @@ public class AEnemieScript : MonoBehaviour
     float velocity = 0.5f;
 
     [SerializeField]
-    int dmgFromA;
-    [SerializeField]
-    int dmgFromB;
-    [SerializeField]
-    int dmgFromC;
-    [SerializeField]
-    int dmgFromD;
-
-    [SerializeField]
     int atack1;
     [SerializeField]
     int atack2;
@@ -25,6 +16,7 @@ public class AEnemieScript : MonoBehaviour
     int atack3;
     [SerializeField]
     int atack4;
+
     [SerializeField]
     GameObject canvasTextPref;
 
@@ -32,6 +24,13 @@ public class AEnemieScript : MonoBehaviour
     float timeMoveUpdates=2f;
 
     bool aument = true;
+
+    bool poisoned = false;
+    float timeElapsePoison = 0f;
+    float timeDurationPoison = 0f;
+    float timeElapsePoisonTick = 0f;
+    float timeDurationPoisonTick = 2f;
+    int poisonDPS = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -56,6 +55,23 @@ public class AEnemieScript : MonoBehaviour
         {
             timeElapseMove = 0;
             move();
+        }
+
+        if (poisoned) {
+            timeElapsePoison += Time.deltaTime;
+            if (timeElapsePoison >= timeDurationPoison)
+            {
+                poisoned = false;
+                timeElapsePoison = 0f;
+                timeDurationPoison = 0f;
+            }
+            timeElapsePoisonTick += Time.deltaTime;
+            if (timeElapsePoisonTick >= timeDurationPoisonTick)
+            {
+                timeElapsePoisonTick = 0f;
+                life -= poisonDPS;
+                displayDmgTaken(poisonDPS, new Color(0.5f, 0.2f, 0.8f));
+            }
         }
     }
 
@@ -91,71 +107,80 @@ public class AEnemieScript : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-
-        switch (collision.name)
+        if (collision.tag == "Bullet")
         {
-            case "BulletA(Clone)":
-                displayDmgTaken(dmgFromA);
-                life -= dmgFromA;
-                Destroy(collision.gameObject);
-                break;
-            case "BulletB(Clone)":
-                displayDmgTaken(dmgFromB);
-                life -= dmgFromB;
-                Destroy(collision.gameObject);
+            BulletFeatures features = collision.GetComponent<BulletFeatures>();
+            int dmgTaken = features.getDmg(name);
+            switch (collision.name)
+            {
+                case "BulletA(Clone)":
+                    break;
+                case "BulletB(Clone)":
+                    if (aument)
+                        if (gameObject.name == "Enemy3(Clone)")
+                        {
+                            atack3 = atack3 * 2;
+                            aument = false;
+                            print("duplico ataque");
+                        }
 
-                if (aument)
+                    break;
+                case "BulletC(Clone)":
                     if (gameObject.name == "Enemy3(Clone)")
                     {
-                        atack3 = atack3 * 2;
-                        aument = false;
-                        print("duplico ataque");
+                        knockBack(collision);
                     }
+                    break;
+                case "BulletD(Clone)":
+                    if (aument)
+                        if (gameObject.name == "Enemy4(Clone)")
+                        {
+                            life += 50;
+                            displayDmgTaken(50, Color.green);
+                            aument = false;
+                        }
 
-                break;
-            case "BulletC(Clone)":
-                displayDmgTaken(dmgFromC);
-                life -= dmgFromC;
-                Destroy(collision.gameObject);
-                if (gameObject.name == "Enemy3(Clone)")
-                {
-                    Vector2 velocityCollision = collision.GetComponent<Rigidbody2D>().velocity;
-                    transform.position = new Vector2(
-                        transform.position.x + Mathf.Sign(transform.position.x) * Mathf.Abs(velocityCollision.x * 0.01f)
-                        , transform.position.y + Mathf.Sign(transform.position.y) * Mathf.Abs(velocityCollision.y * 0.01f)
-                        );
-                }
-                break;
-            case "BulletD(Clone)":
-                displayDmgTaken(dmgFromD);
-                life -= dmgFromD;
-                Destroy(collision.gameObject);
-                if (aument)
-                    if (gameObject.name == "Enemy4(Clone)")
-                    {
-                        life += 50;
-                        aument = false;
-                    }
+                    break;
+            }
+            displayDmgTaken(features.getDmg(name), Color.red);
+            life -= dmgTaken;
+            Destroy(collision.gameObject);
+            if (life <= 0)
+            {
+                Destroy(gameObject);
+            }
 
-                break;
+            if (features.getKnockBack())
+            {
+                knockBack(collision);
+            }
+            if (features.getPoison())
+            {
+                poison(10, 2);
+            }
         }
-        if (life <= 0)
+
+        if (collision.tag == "Pill")
         {
-            Destroy(gameObject);
+            PIllGreenScript pill = collision.GetComponent<PIllGreenScript>();
+            if (pill.getKnockBack())
+            {
+                knockBackPill();
+            }
         }
-
     }
 
-    void displayDmgTaken(int dmgTaken)
+    void displayDmgTaken(int dmgTaken, Color color)
     {
         GameObject canvasText = Instantiate(canvasTextPref, transform.position, Quaternion.identity, transform);
-        canvasText.transform.GetChild(0).gameObject.GetComponent<Text>().text = dmgTaken.ToString();
+        Text dmgText = canvasText.transform.GetChild(0).gameObject.GetComponent<Text>();
+        dmgText.text = dmgTaken.ToString();
+        dmgText.color = color;
         Destroy(canvasText, 0.5f);
     }
 
     public int getDmg(string torret)
     {
-        print("dmg"+torret);
         switch (torret)
         {
             case "PillA(Clone)":
@@ -172,7 +197,32 @@ public class AEnemieScript : MonoBehaviour
 
     public void startBuff(string buffID)
     {
-        print("buff pill");
+        print("buff Enemy");
     }
 
+    void knockBack(Collider2D collision)
+    {
+        Vector2 velocityCollision = collision.GetComponent<Rigidbody2D>().velocity;
+        transform.position = new Vector2(
+            transform.position.x + Mathf.Sign(transform.position.x) * Mathf.Abs(velocityCollision.x * 0.01f)
+            , transform.position.y + Mathf.Sign(transform.position.y) * Mathf.Abs(velocityCollision.y * 0.01f)
+            );
+    }
+
+    void knockBackPill()
+    {
+        print("hola me muero");
+        Vector2 velocityCollision = this.GetComponent<Rigidbody2D>().velocity;
+        transform.position = new Vector2(
+            transform.position.x - velocityCollision.x * 0.1f
+            , transform.position.y - velocityCollision.y * 0.1f
+            );
+    }
+
+    void poison(float time, int dmgPerSecond)
+    {
+        timeDurationPoison = time;
+        poisonDPS = dmgPerSecond;
+        poisoned = true;
+    }
 }

@@ -7,6 +7,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1747656705747800342, guid: fa025be8077c1154b99ca246b7c83dc1,
+        type: 3}
+      propertyPath: DmgEnemy1
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1747656705747800342, guid: fa025be8077c1154b99ca246b7c83dc1,
+        type: 3}
+      propertyPath: DmgEnemy2
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1747656705747800342, guid: fa025be8077c1154b99ca246b7c83dc1,
+        type: 3}
+      propertyPath: DmgEnemy4
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 3860394120193555144, guid: fa025be8077c1154b99ca246b7c83dc1,
         type: 3}
       propertyPath: m_Sprite
@@ -67,6 +82,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3860394120193555145, guid: fa025be8077c1154b99ca246b7c83dc1,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.1060483
+      objectReference: {fileID: 0}
+    - target: {fileID: 3860394120193555145, guid: fa025be8077c1154b99ca246b7c83dc1,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.1061074
       objectReference: {fileID: 0}
     - target: {fileID: 3860394120193555150, guid: fa025be8077c1154b99ca246b7c83dc1,
         type: 3}

@@ -14,6 +14,8 @@ TagManager:
   - Enemy4
   - Pill
   - Buff
+  - BulletC
+  - BulletD
   layers:
   - Default
   - TransparentFX
@@ -62,6 +64,9 @@ TagManager:
     locked: 0
   - name: Pill
     uniqueID: 3062150831
+    locked: 0
+  - name: Buff
+    uniqueID: 2043621631
     locked: 0
   - name: Lines
     uniqueID: 1529785637

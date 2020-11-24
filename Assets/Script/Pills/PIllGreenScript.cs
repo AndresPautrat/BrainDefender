@@ -33,6 +33,15 @@ public class PIllGreenScript : MonoBehaviour
     [SerializeField]
     GameObject canvasTextPref;
 
+    [SerializeField]
+    GameObject imgBuffVel;
+    [SerializeField]
+    GameObject imgBuffFue;
+    [SerializeField]
+    GameObject imgBuffDef;
+    [SerializeField]
+    GameObject imgBuffPoi;
+
     private void Start()
     {
 
@@ -41,14 +50,23 @@ public class PIllGreenScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        timeElapseBuff += Time.deltaTime;
-        if (timeElapseBuff >= timeBetweenBuff)
+        if (applyingBuff != -1)
         {
-            timeElapseBuff = 0;
-            applyingBuff = -1;
+            timeElapseBuff += Time.deltaTime;
+            if (timeElapseBuff >= timeBetweenBuff)
+            {
+                timeElapseBuff = 0;
+                applyingBuff = -1;
+                defenseBuff = 1;
+                atackBuff = 1;
+                velocityBuff = 1;
+                knockBackBullet = false;
+                knockBackPill = false;
+                poison = false;
+            }
         }
             timeElapse += Time.deltaTime;
-        if (timeElapse >= recoil)
+        if (timeElapse >= recoil/velocityBuff)
         {
             timeElapse = 0;
             List<GameObject> enemies = new List<GameObject>();
@@ -56,10 +74,30 @@ public class PIllGreenScript : MonoBehaviour
             enemies.AddRange(GameObject.FindGameObjectsWithTag("Buff"));
             if (enemies.Count > 0)
             {
-                GameObject targetEnemy = enemies[0];
+                GameObject targetEnemy = nearestEnemy(enemies);
                 behaviour(targetEnemy);
             }
         }
+    }
+
+    GameObject nearestEnemy(List<GameObject> targets)
+    {
+        int closestDirection=0;
+        float closestDistance = 9999999;
+        for (int i = 0; i < targets.Count; i++)
+        {
+            Vector3 neuronPosition = targets[i].transform.position;
+            float xDistance = neuronPosition.x - transform.position.x;
+            float yDistance = neuronPosition.y - transform.position.y;
+            float distance = Mathf.Sqrt(Mathf.Pow(xDistance, 2) + Mathf.Pow(yDistance, 2));
+            if (distance < closestDistance)
+            {
+                closestDirection = i;
+                closestDistance = distance;
+                //gameObject.GetComponent<Rigidbody2D>().velocity = direction;
+            }
+        }
+        return targets[closestDirection];
     }
 
     void shoot(GameObject enemy, float speed)
@@ -75,6 +113,7 @@ public class PIllGreenScript : MonoBehaviour
         float yDirection = speed * yDistance / distance;
         Vector3 direction = new Vector3(xDirection, yDirection);
         bullet.GetComponent<Rigidbody2D>().velocity = direction;
+        bullet.GetComponent<BulletFeatures>().setFeatures(atackBuff, knockBackBullet, poison);
     }
 
     void behaviour(GameObject enemy)
@@ -129,7 +168,6 @@ public class PIllGreenScript : MonoBehaviour
         timeElapseEnemyDmg += Time.deltaTime;
         if (timeElapseEnemyDmg >= timeBetweenEnemyDmg)
         {
-            print(gameObject.name);
             int dmgTaken = collision.gameObject.GetComponent<AEnemieScript>().getDmg(gameObject.name);
             dmgTaken = (int)(dmgTaken*defenseBuff);
             displayDmgTaken(dmgTaken);
@@ -151,27 +189,46 @@ public class PIllGreenScript : MonoBehaviour
 
     public void startBuff(string buffID)
     {
+       
+        GameObject image;
         switch (buffID)
         {
             case "Buff1(Clone)":
                 applyingBuff = 1;
                 velocityBuff *= 1.1f;
+                image = Instantiate(imgBuffVel, transform.position, Quaternion.identity, transform);
+                Destroy(image, 10f);
                 break;
             case "Buff2(Clone)":
+                print("active buff");
                 applyingBuff = 2;
                 knockBackBullet = true;
                 atackBuff = 1.1f;
+                print("active buffx2");
+                image = Instantiate(imgBuffFue, transform.position, Quaternion.identity, transform);
+                print("active buffx3");
+                Destroy(image, 10f);
                 break;
             case "Buff3(Clone)":
                 applyingBuff = 3;
                 knockBackPill = true;
                 defenseBuff = 1.2f;
+                image = Instantiate(imgBuffDef, transform.position, Quaternion.identity, transform);
+                Destroy(image, 10f);
                 break ;
             case "Buff4(Clone)":
                 applyingBuff = 4;
                 atackBuff = 0.9f;
                 poison = true;
+                image = Instantiate(imgBuffPoi, transform.position, Quaternion.identity, transform);
+                Destroy(image, 10f);
                 break;
         }
+        
+    }
+
+    public bool getKnockBack()
+    {
+        return knockBackPill;
     }
 }

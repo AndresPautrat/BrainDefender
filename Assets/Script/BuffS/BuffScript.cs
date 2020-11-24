@@ -20,10 +20,8 @@ public class BuffScript : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        print(collision.tag);
         if(collision.tag == "Bullet")
         {
-            print("algo");
             life -= 10;
             Destroy(collision.gameObject);
         }
@@ -34,21 +32,25 @@ public class BuffScript : MonoBehaviour
 
         if(life <= 0)
         {
-            Destroy(this.gameObject);
             sendBuff(collision.tag);
+            Destroy(this.gameObject);
         }
     }
 
     void sendBuff(string targetName)
     {
-        GameObject[] targets = GameObject.FindGameObjectsWithTag(targetName);
+        GameObject[] targets = GameObject.FindGameObjectsWithTag("Pill"); ;
+        if (targetName == "Enemy")
+        {
+            targets = GameObject.FindGameObjectsWithTag(targetName);
+        }
         for (int i = 0; i < targets.Length; i++)
         {
             if (targetName == "Enemy")
             {
                 targets[i].GetComponent<AEnemieScript>().startBuff(this.name);
             }
-            else if(targetName == "Pill")
+            else if(targetName == "Bullet")
             {
                 targets[i].GetComponent<PIllGreenScript>().startBuff(this.name);
             }
