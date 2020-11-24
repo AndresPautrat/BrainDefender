@@ -47,6 +47,15 @@ public class AEnemieScript : MonoBehaviour
     float timeDurationPoisonTick = 2f;
     int poisonDPS = 0;
 
+    [SerializeField]
+    GameObject imgBuffVel;
+    [SerializeField]
+    GameObject imgBuffFue;
+    [SerializeField]
+    GameObject imgBuffDef;
+    [SerializeField]
+    GameObject imgBuffPoi;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -228,6 +237,7 @@ public class AEnemieScript : MonoBehaviour
 
     public void startBuff(string buffID)
     {
+        GameObject image;
         print("buff Enemy");
         switch (buffID)
         {
@@ -235,19 +245,27 @@ public class AEnemieScript : MonoBehaviour
                 applyBuff = 1;
                 velocityActivate = true;
                 velocityBuff *= 1.2f;
+                image = Instantiate(imgBuffVel, transform.position, Quaternion.identity, transform);
+                Destroy(image, 10f);
                 move();
                 break;
             case "Buff2(Clone)":
                 applyBuff = 1;
                 atackBuff = 1.15f;
+                image = Instantiate(imgBuffVel, transform.position, Quaternion.identity, transform);
+                Destroy(image, 10f);
                 break;
             case "Buff3(Clone)":
                 applyBuff = 1;
                 defenseBuff = 1.3f;
+                image = Instantiate(imgBuffVel, transform.position, Quaternion.identity, transform);
+                Destroy(image, 10f);
                 break;
             case "Buff4(Clone)":
                 applyBuff = 1;
                 poisonAttackBuff = true;
+                image = Instantiate(imgBuffVel, transform.position, Quaternion.identity, transform);
+                Destroy(image, 10f);
                 break;
 
         }

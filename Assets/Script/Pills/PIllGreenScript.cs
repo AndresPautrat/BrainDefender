@@ -42,6 +42,13 @@ public class PIllGreenScript : MonoBehaviour
     [SerializeField]
     GameObject imgBuffPoi;
 
+    bool poisoned = false;
+    float timeElapsePoison = 0f;
+    float timeDurationPoison = 0f;
+    float timeElapsePoisonTick = 0f;
+    float timeDurationPoisonTick = 2f;
+    int poisonDPS = 0;
+
     private void Start()
     {
 
@@ -76,6 +83,24 @@ public class PIllGreenScript : MonoBehaviour
             {
                 GameObject targetEnemy = nearestEnemy(enemies);
                 behaviour(targetEnemy);
+            }
+        }
+
+        if (poisoned)
+        {
+            timeElapsePoison += Time.deltaTime;
+            if (timeElapsePoison >= timeDurationPoison)
+            {
+                poisoned = false;
+                timeElapsePoison = 0f;
+                timeDurationPoison = 0f;
+            }
+            timeElapsePoisonTick += Time.deltaTime;
+            if (timeElapsePoisonTick >= timeDurationPoisonTick)
+            {
+                timeElapsePoisonTick = 0f;
+                life -= poisonDPS;
+                displayDmgTaken(poisonDPS, new Color(0.5f, 0.2f, 0.8f));
             }
         }
     }
@@ -165,31 +190,35 @@ public class PIllGreenScript : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        timeElapseEnemyDmg += Time.deltaTime;
-        if (timeElapseEnemyDmg >= timeBetweenEnemyDmg)
+        if (collision.tag == "Enemy")
         {
-            int dmgTaken = collision.gameObject.GetComponent<AEnemieScript>().getDmg(gameObject.name);
-            dmgTaken = (int)(dmgTaken * defenseBuff);
-            displayDmgTaken(dmgTaken);
-            life -= dmgTaken;
-            timeElapseEnemyDmg = 0;
-            if (life <= 0)
+            timeElapseEnemyDmg += Time.deltaTime;
+            if (timeElapseEnemyDmg >= timeBetweenEnemyDmg)
             {
-                Destroy(gameObject);
+                int dmgTaken = collision.gameObject.GetComponent<AEnemieScript>().getDmg(gameObject.name);
+                dmgTaken = (int)(dmgTaken * defenseBuff);
+                displayDmgTaken(dmgTaken, Color.red);
+                life -= dmgTaken;
+                timeElapseEnemyDmg = 0;
+                if (life <= 0)
+                {
+                    Destroy(gameObject);
+                }
             }
         }
     }
 
-    void displayDmgTaken(int dmgTaken)
+    void displayDmgTaken(int dmgTaken, Color color)
     {
         GameObject canvasText = Instantiate(canvasTextPref, transform.position, Quaternion.identity, transform);
-        canvasText.transform.GetChild(0).gameObject.GetComponent<Text>().text = dmgTaken.ToString();
+        Text dmgText = canvasText.transform.GetChild(0).gameObject.GetComponent<Text>();
+        dmgText.text = dmgTaken.ToString();
+        dmgText.color = color;
         Destroy(canvasText, 0.5f);
     }
 
     public void startBuff(string buffID)
     {
-
         GameObject image;
         switch (buffID)
         {
@@ -230,5 +259,12 @@ public class PIllGreenScript : MonoBehaviour
     public bool getKnockBack()
     {
         return knockBackPill;
+    }
+
+    void startPoison(float time, int dmgPerSecond)
+    {
+        timeDurationPoison = time;
+        poisonDPS = dmgPerSecond;
+        poisoned = true;
     }
 }

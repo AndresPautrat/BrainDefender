@@ -56,23 +56,26 @@ TagManager:
   - name: Map
     uniqueID: 3270267189
     locked: 0
-  - name: Enemies
-    uniqueID: 2546633333
-    locked: 0
   - name: Bullet
     uniqueID: 2426797267
     locked: 0
-  - name: Pill
-    uniqueID: 3062150831
-    locked: 0
   - name: Buff
     uniqueID: 2043621631
+    locked: 0
+  - name: Pill
+    uniqueID: 3062150831
     locked: 0
   - name: Lines
     uniqueID: 1529785637
     locked: 0
   - name: Neurons
     uniqueID: 4034556567
+    locked: 0
+  - name: Enemies
+    uniqueID: 2546633333
+    locked: 0
+  - name: BuffSprite
+    uniqueID: 4157114131
     locked: 0
   - name: UI
     uniqueID: 1330037199

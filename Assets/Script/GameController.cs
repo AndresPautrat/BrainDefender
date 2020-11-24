@@ -8,8 +8,12 @@ public class GameController : MonoBehaviour
 {
     double timeElapseEnemies = 0;
     double timeElapseNeurons = 0;
+
     double enemySpawnTime = 2.5;
     double neuronsSpawnTime = 10;
+
+    double buffElapseTime = 20;
+    double buffSpawnTime = 30;
 
     [SerializeField]
     GameObject[] enemyPref;
@@ -32,6 +36,9 @@ public class GameController : MonoBehaviour
     float score = 0;
 
     int creatingPill = -1;
+
+    [SerializeField]
+    GameObject[] buffPrefs;
 
     void Start()
     {
@@ -90,6 +97,13 @@ public class GameController : MonoBehaviour
             timeElapseNeurons = 0;
             spawnNeuron();
         }
+
+        buffElapseTime += Time.deltaTime;
+        if (buffElapseTime >= buffSpawnTime)
+        {
+            buffElapseTime = 0;
+            spawnBuff();
+        }
     }
     void createTower()
     {
@@ -132,6 +146,15 @@ public class GameController : MonoBehaviour
         float xRandom = Random.Range(-width, width);
         float yRandom = Random.Range(-orto, orto);
         GameObject neuron = Instantiate(neuronPref, new Vector3(xRandom / 2, yRandom / 2), Quaternion.identity);
+    }
+
+    void spawnBuff()
+    {
+        int buffType = Random.Range(0, 4);
+        float xRandom = Random.Range(-width, width);
+        float yRandom = Random.Range(-orto, orto);
+
+        GameObject enemy = Instantiate(buffPrefs[buffType], new Vector3(xRandom / 2, yRandom / 2), Quaternion.identity);
     }
 
 
