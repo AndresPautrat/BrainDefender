@@ -65,8 +65,8 @@ public class PIllGreenScript : MonoBehaviour
                 poison = false;
             }
         }
-            timeElapse += Time.deltaTime;
-        if (timeElapse >= recoil/velocityBuff)
+        timeElapse += Time.deltaTime;
+        if (timeElapse >= recoil / velocityBuff)
         {
             timeElapse = 0;
             List<GameObject> enemies = new List<GameObject>();
@@ -82,7 +82,7 @@ public class PIllGreenScript : MonoBehaviour
 
     GameObject nearestEnemy(List<GameObject> targets)
     {
-        int closestDirection=0;
+        int closestDirection = 0;
         float closestDistance = 9999999;
         for (int i = 0; i < targets.Count; i++)
         {
@@ -169,7 +169,7 @@ public class PIllGreenScript : MonoBehaviour
         if (timeElapseEnemyDmg >= timeBetweenEnemyDmg)
         {
             int dmgTaken = collision.gameObject.GetComponent<AEnemieScript>().getDmg(gameObject.name);
-            dmgTaken = (int)(dmgTaken*defenseBuff);
+            dmgTaken = (int)(dmgTaken * defenseBuff);
             displayDmgTaken(dmgTaken);
             life -= dmgTaken;
             timeElapseEnemyDmg = 0;
@@ -189,7 +189,7 @@ public class PIllGreenScript : MonoBehaviour
 
     public void startBuff(string buffID)
     {
-       
+
         GameObject image;
         switch (buffID)
         {
@@ -215,7 +215,7 @@ public class PIllGreenScript : MonoBehaviour
                 defenseBuff = 1.2f;
                 image = Instantiate(imgBuffDef, transform.position, Quaternion.identity, transform);
                 Destroy(image, 10f);
-                break ;
+                break;
             case "Buff4(Clone)":
                 applyingBuff = 4;
                 atackBuff = 0.9f;
@@ -224,7 +224,7 @@ public class PIllGreenScript : MonoBehaviour
                 Destroy(image, 10f);
                 break;
         }
-        
+
     }
 
     public bool getKnockBack()

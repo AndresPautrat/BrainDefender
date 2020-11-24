@@ -20,8 +20,23 @@ public class AEnemieScript : MonoBehaviour
     [SerializeField]
     GameObject canvasTextPref;
 
-    float timeElapseMove=0f;
-    float timeMoveUpdates=2f;
+    float timeElapseMove = 0f;
+    float timeMoveUpdates = 2f;
+
+    //variables buff
+    int applyBuff = -1;
+    float velocityBuff = 1;
+    float atackBuff = 1;
+    float defenseBuff = 1;
+    bool poisonAttackBuff = false;
+    bool velocityActivate = false;
+
+
+    float timeElapseEnemyDmg = 0;
+    float timeBetweenEnemyDmg = 1;
+
+    float timeElapseBuff = 0f;
+    float timeDurationBuff = 10f;
 
     bool aument = true;
 
@@ -57,7 +72,22 @@ public class AEnemieScript : MonoBehaviour
             move();
         }
 
-        if (poisoned) {
+        if (applyBuff != -1)
+        {
+            timeElapseBuff += Time.deltaTime;
+            if (timeElapseBuff >= timeDurationBuff)
+            {
+                timeElapseBuff = 0;
+                applyBuff = -1;
+                defenseBuff = 1;
+                atackBuff = 1;
+                velocityBuff = 1;
+                poisonAttackBuff = false;
+            }
+        }
+
+        if (poisoned)
+        {
             timeElapsePoison += Time.deltaTime;
             if (timeElapsePoison >= timeDurationPoison)
             {
@@ -81,7 +111,7 @@ public class AEnemieScript : MonoBehaviour
         targets.AddRange(GameObject.FindGameObjectsWithTag("Neurons"));
         targets.AddRange(GameObject.FindGameObjectsWithTag("Pill"));
         targets.AddRange(GameObject.FindGameObjectsWithTag("Buff"));
-        Vector3 closestDirection=new Vector3(0,0);
+        Vector3 closestDirection = new Vector3(0, 0);
         float closestDistance = 9999999;
         for (int i = 0; i < targets.Count; i++)
         {
@@ -91,8 +121,8 @@ public class AEnemieScript : MonoBehaviour
             float distance = Mathf.Sqrt(Mathf.Pow(xDistance, 2) + Mathf.Pow(yDistance, 2));
             if (distance < closestDistance)
             {
-                float xDirection = velocity * xDistance / distance;
-                float yDirection = velocity * yDistance / distance;
+                float xDirection = (velocity * velocityBuff)* xDistance / distance;
+                float yDirection = (velocity * velocityBuff) * yDistance / distance;
 
                 closestDirection = new Vector3(xDirection, yDirection);
                 closestDistance = distance;
@@ -143,8 +173,9 @@ public class AEnemieScript : MonoBehaviour
                     break;
             }
             displayDmgTaken(features.getDmg(name), Color.red);
-            life -= dmgTaken;
+            life -= (int)(dmgTaken/defenseBuff);
             Destroy(collision.gameObject);
+
             if (life <= 0)
             {
                 Destroy(gameObject);
@@ -184,13 +215,13 @@ public class AEnemieScript : MonoBehaviour
         switch (torret)
         {
             case "PillA(Clone)":
-                return atack1;
+                return (int)(atack1 * atackBuff);
             case "PillB(Clone)":
-                return atack2;
+                return (int)(atack2 * atackBuff);
             case "PillC(Clone)":
-                return atack3;
+                return (int)(atack3 * atackBuff);
             case "PillD(Clone)":
-                return atack4;
+                return (int)(atack4 * atackBuff);
         }
         return 0;
     }
@@ -198,6 +229,30 @@ public class AEnemieScript : MonoBehaviour
     public void startBuff(string buffID)
     {
         print("buff Enemy");
+        switch (buffID)
+        {
+            case "Buff1(Clone)":
+                applyBuff = 1;
+                velocityActivate = true;
+                velocityBuff *= 1.2f;
+                move();
+                break;
+            case "Buff2(Clone)":
+                applyBuff = 1;
+                atackBuff = 1.15f;
+                break;
+            case "Buff3(Clone)":
+                applyBuff = 1;
+                defenseBuff = 1.3f;
+                break;
+            case "Buff4(Clone)":
+                applyBuff = 1;
+                poisonAttackBuff = true;
+                break;
+
+        }
+
+
     }
 
     void knockBack(Collider2D collision)

@@ -18,13 +18,13 @@ public class BulletFeatures : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void setFeatures(float _atackBuff, bool _knockBackBullet, bool _poison)
@@ -36,20 +36,16 @@ public class BulletFeatures : MonoBehaviour
 
     public int getDmg(string EnemyID)
     {
-        switch(EnemyID)
+        switch (EnemyID)
         {
             case "Enemy1(Clone)":
                 return (int)(DmgEnemy1 * atackBuff);
-                break;
             case "Enemy2(Clone)":
                 return (int)(DmgEnemy2 * atackBuff);
-                break;
             case "Enemy3(Clone)":
                 return (int)(DmgEnemy3 * atackBuff);
-                break;
             case "Enemy4(Clone)":
                 return (int)(DmgEnemy4 * atackBuff);
-                break;
         }
         return 0;
     }
